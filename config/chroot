@@ -1,7 +1,7 @@
 # config/chroot - options for live-build(7), chroot stage
 
 # Set chroot filesystem
-LB_CHROOT_FILESYSTEM="squashfs"
+LB_CHROOT_FILESYSTEM="none"
 
 # Set chroot squashfs compression level
 LB_CHROOT_SQUASHFS_COMPRESSION_LEVEL=""
@@ -22,7 +22,7 @@ LB_KEYRING_PACKAGES="blankon-keyring"
 LB_LINUX_FLAVOURS_WITH_ARCH="amd64"
 
 # Set kernel packages to use
-LB_LINUX_PACKAGES="linux-image"
+LB_LINUX_PACKAGES="none"
 
 # Enable security updates
 LB_SECURITY="false"
