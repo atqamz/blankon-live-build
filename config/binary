@@ -1,28 +1,28 @@
 # config/binary - options for live-build(7), binary stage
 
 # Set image type
-LB_IMAGE_TYPE="iso-hybrid"
+LB_IMAGE_TYPE="tar"
 
 # Set image filesystem
-LB_BINARY_FILESYSTEM="fat32"
+LB_BINARY_FILESYSTEM="ext4"
 
 # Set apt/aptitude generic indices
 LB_APT_INDICES="true"
 
 # Set boot parameters
-LB_BOOTAPPEND_LIVE="boot=live components quiet splash username=blankon hostname=blankon"
+LB_BOOTAPPEND_LIVE=""
 
 # Set boot parameters
 LB_BOOTAPPEND_INSTALL=""
 
 # Set boot parameters
-LB_BOOTAPPEND_LIVE_FAILSAFE="boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=788"
+LB_BOOTAPPEND_LIVE_FAILSAFE=""
 
 # Set BIOS bootloader
-LB_BOOTLOADER_BIOS="syslinux"
+LB_BOOTLOADER_BIOS="none"
 
 # Set EFI bootloader
-LB_BOOTLOADER_EFI="grub-efi"
+LB_BOOTLOADER_EFI="none"
 
 # Set checksums
 LB_CHECKSUMS="sha256"

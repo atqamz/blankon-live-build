@@ -40,7 +40,7 @@ LB_DEBCONF_FRONTEND="noninteractive"
 LB_DEBCONF_PRIORITY="critical"
 
 # Set initramfs hook
-LB_INITRAMFS="live-boot"
+LB_INITRAMFS="none"
 
 # Set initramfs compression
 LB_INITRAMFS_COMPRESSION="gzip"
