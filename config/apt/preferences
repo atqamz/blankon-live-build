@@ -1,11 +1,3 @@
-Package: termit
-Pin: version *
-Pin-Priority: -1
-
-Package: firefox-esr
-Pin: version *
-Pin-Priority: -1
-
 Package: base-files
 Pin: origin "arsip-dev.blankonlinux.id"
 Pin-Priority: 1001

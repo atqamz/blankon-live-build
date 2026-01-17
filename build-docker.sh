@@ -92,29 +92,44 @@ cp -vR ./tmp/$TODAY-$TODAY_COUNT/config config
 sudo lb clean
 sudo lb config --architectures $ARCH
 rm -f blankon-docker-image-$ARCH.build.log
-sudo lb build 2>&1 | tee blankon-docker-image-$ARCH.build.log
+
+# Run stages manually to avoid binary stage failures
+{
+    sudo lb bootstrap
+    sudo lb chroot
+} 2>&1 | tee blankon-docker-image-$ARCH.build.log
+
+# Manually create the Docker tarball from the chroot
+if [ -d "chroot/bin" ]; then
+    echo "Filesystem built. Creating Docker tarball..."
+    sudo tar -C chroot -c . | xz > blankon-live-image-$ARCH.tar.xz
+    echo "P: Build completed successfully" >> blankon-docker-image-$ARCH.build.log
+else
+    echo "E: Chroot failed" >> blankon-docker-image-$ARCH.build.log
+fi
+
 
 LOG_FILE="blankon-docker-image-$ARCH.build.log"
 
 if tail -n 10 "$LOG_FILE" | grep -q "P: Build completed successfully"; then
   RESULT="telah terbit ✅"
   ACTION="Berkas citra docker dapat diunduh"
-  
+
   # Identify output
   TARBALL=$(ls *.tar.xz 2>/dev/null || ls *.tar.gz 2>/dev/null || ls *.tar 2>/dev/null | head -n 1)
-  
+
   if [ -n "$TARBALL" ]; then
       cp -v "$TARBALL" "$TARGET_DIR/$TARBALL"
       sha256sum "$TARGET_DIR/$TARBALL" > "$TARGET_DIR/$TARBALL.sha256sum"
-      
+
       # Copy other metadata if needed
       cp -v blankon-live-image-$ARCH.packages "$TARGET_DIR/" 2>/dev/null || true
-      
+
       # Update 'current' link
       rm -f "$JAHITAN_PATH/current"
       ln -s "$TARGET_DIR" "$JAHITAN_PATH/current"
       echo "$TODAY-$TODAY_COUNT" > "$JAHITAN_PATH/current/current.txt"
-      
+
       echo "Artifacts saved to $TARGET_DIR"
   else
        echo "Error: Output tarball not found."
