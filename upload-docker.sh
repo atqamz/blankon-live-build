@@ -38,7 +38,9 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 
-IMAGE_NAME="ghcr.io/${GHCR_OWNER}/${GHCR_IMAGE}"
+OWNER_LC=$(echo "$GHCR_OWNER" | tr '[:upper:]' '[:lower:]')
+IMAGE_LC=$(echo "$GHCR_IMAGE" | tr '[:upper:]' '[:lower:]')
+IMAGE_NAME="ghcr.io/${OWNER_LC}/${IMAGE_LC}"
 IMAGE_REF="${IMAGE_NAME}:${TAG}"
 
 CHANGE_ARGS=()
